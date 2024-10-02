@@ -1,0 +1,19 @@
+{
+  "name": "stormotion-internship-js-test",
+  "version": "1.0.0",
+  "description": "Stormotion-Internship-JS-Test",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
