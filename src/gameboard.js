@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const GameBoard = ({ gameMode, endGame }) => {
   const [matchesLeft, setMatchesLeft] = useState(25);
   const [playerMatches, setPlayerMatches] = useState(0);
   const [computerMatches, setComputerMatches] = useState(0);
-  const [isPlayerTurnBlocked, setIsPlayerTurnBlocked] = useState(false); 
+  const [isPlayerTurnBlocked, setIsPlayerTurnBlocked] = useState(gameMode === 'first' ? false : true);
+
+  useEffect(() => {
+    if (gameMode === 'first') {
+ 
+      setIsPlayerTurnBlocked(false);
+    } else if (gameMode === 'second') {
+      setTimeout(() => handleComputerTurn(matchesLeft), 1000); 
+    }
+  }, [gameMode]);
 
   const handlePlayerTurn = (matches) => {
     if (isPlayerTurnBlocked) return; 
@@ -17,7 +26,6 @@ const GameBoard = ({ gameMode, endGame }) => {
     setPlayerMatches(newPlayerMatches);
 
     if (newMatchesLeft <= 0) {
-      // Игра окончена
       const winner = newPlayerMatches % 2 === 0 ? 'player' : 'computer'; 
       endGame(winner, newPlayerMatches, computerMatches);
     } else {
@@ -29,7 +37,6 @@ const GameBoard = ({ gameMode, endGame }) => {
 
   const handleComputerTurn = (remainingMatches, newPlayerMatches) => {
     let computerMove;
-
 
     if (remainingMatches === 3) {
       if (computerMatches % 2 === 0) {
@@ -58,7 +65,6 @@ const GameBoard = ({ gameMode, endGame }) => {
     setComputerMatches(newComputerMatches);
 
     if (newMatchesLeft <= 0) {
-
       const winner = newComputerMatches % 2 === 0 ? 'computer' : 'player'; 
       endGame(winner, newPlayerMatches, newComputerMatches); 
     } else {
@@ -68,7 +74,7 @@ const GameBoard = ({ gameMode, endGame }) => {
 
   return (
     <div>
-      <h2>Оставшиеся спички: {matchesLeft} 🧨</h2>
+      <h2>Оставшиеся спички: {matchesLeft} 🎇</h2>
       <div>Ваши спички: {playerMatches}</div>
       <div>Спички компьютера: {computerMatches}</div>
       <div>
