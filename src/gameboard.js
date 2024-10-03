@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const GameBoard = ({ gameMode, endGame }) => {
-  const [matchesLeft, setMatchesLeft] = useState(25);
+const GameBoard = ({ gameMode, endGame, n, m }) => {
+  const [matchesLeft, setMatchesLeft] = useState(2 * n + 1); 
   const [playerMatches, setPlayerMatches] = useState(0);
   const [computerMatches, setComputerMatches] = useState(0);
   const [isPlayerTurnBlocked, setIsPlayerTurnBlocked] = useState(gameMode === 'first' ? false : true);
 
   useEffect(() => {
     if (gameMode === 'first') {
- 
       setIsPlayerTurnBlocked(false);
     } else if (gameMode === 'second') {
       setTimeout(() => handleComputerTurn(matchesLeft), 1000); 
@@ -16,7 +15,7 @@ const GameBoard = ({ gameMode, endGame }) => {
   }, [gameMode]);
 
   const handlePlayerTurn = (matches) => {
-    if (isPlayerTurnBlocked) return; 
+    if (isPlayerTurnBlocked) return;
 
     setIsPlayerTurnBlocked(true); 
     const newMatchesLeft = matchesLeft - matches;
@@ -52,7 +51,7 @@ const GameBoard = ({ gameMode, endGame }) => {
       }
     } else {
       if (remainingMatches % 4 === 0) {
-        computerMove = Math.min(3, remainingMatches);
+        computerMove = Math.min(m, remainingMatches);
       } else {
         computerMove = remainingMatches % 4;
       }
@@ -74,28 +73,19 @@ const GameBoard = ({ gameMode, endGame }) => {
 
   return (
     <div>
-      <h2>Оставшиеся спички: {matchesLeft} 🎇</h2>
-      <div>Ваши спички: {playerMatches}</div>
-      <div>Спички компьютера: {computerMatches}</div>
+      <h2>Remaining matches: {matchesLeft} 🎇</h2>
+      <div>Your matches {playerMatches} 🎇</div>
+      <div>Computer`s matches {computerMatches} 🎇</div>
       <div>
-        <button 
-          onClick={() => handlePlayerTurn(1)} 
-          disabled={matchesLeft < 1 || isPlayerTurnBlocked}
-        >
-          Взять 1 🎇спичку
-        </button>
-        <button 
-          onClick={() => handlePlayerTurn(2)} 
-          disabled={matchesLeft < 2 || isPlayerTurnBlocked}
-        >
-          Взять 2 🎇🎇спички
-        </button>
-        <button 
-          onClick={() => handlePlayerTurn(3)} 
-          disabled={matchesLeft < 3 || isPlayerTurnBlocked}
-        >
-          Взять 3 🎇🎇🎇спички
-        </button>
+        {[...Array(m)].map((_, i) => (
+          <button
+            key={i + 1}
+            onClick={() => handlePlayerTurn(i + 1)}
+            disabled={matchesLeft < i + 1 || isPlayerTurnBlocked}
+          >
+            Take {i + 1} 🎇matches
+          </button>
+        ))}
       </div>
     </div>
   );
