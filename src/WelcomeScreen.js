@@ -2,7 +2,7 @@ import React from 'react';
 
 const WelcomeScreen = ({ startGame, openSettings }) => {
   return (
-    <div>
+    <div className="welcome-container">
       <h1>Welcome to "The MatchGame" 💥</h1>
       <p>Do you wanna start first? ⚔️</p>
       <button onClick={() => startGame('first')}>Sure, I will start first! 😎</button>

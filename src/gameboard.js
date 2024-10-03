@@ -74,8 +74,8 @@ const GameBoard = ({ gameMode, endGame, n, m }) => {
   return (
     <div>
       <h2>Remaining matches: {matchesLeft} 🎇</h2>
-      <div>Your matches {playerMatches} 🎇</div>
-      <div>Computer`s matches {computerMatches} 🎇</div>
+      <div className="player-matches">Your matches: {playerMatches} 🎇</div>
+      <div className="computer-matches">Computer`s matches: {computerMatches} 🎇</div>
       <div>
         {[...Array(m)].map((_, i) => (
           <button
