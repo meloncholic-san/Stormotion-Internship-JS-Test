@@ -2,6 +2,8 @@
 
 # Match Game 
 
+**This project is a JavaScript test assignment for Stormotion. The project is built with React.js and bundled using Parcel.**
+
 ## Assignment Description
 
 The assignment involves creating a game where two players take turns playing. Starting from a pile of 25 matches, each player can take either 1, 2, or 3 matches on each turn. The game ends when all matches are taken, and the player with an even number of matches wins.
